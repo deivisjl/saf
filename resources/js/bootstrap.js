@@ -8,9 +8,14 @@ window._ = require('lodash');
 
 try {
     window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+    window.$ = window.jQuery = require('admin-lte/plugins/jquery/jquery.min.js');
 
-    require('bootstrap');
+    //require('bootstrap');    
+    require('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js');
+    require('admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js');
+    require('admin-lte/dist/js/adminlte.js');
+    require('admin-lte/plugins/jqvmap/jquery.vmap.min.js')
+
 } catch (e) {}
 
 /**
