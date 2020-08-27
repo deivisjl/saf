@@ -19,6 +19,50 @@
 
 @import '~admin-lte/plugins/fontawesome-free/css/all.min.css';
 
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+
+@import "~toastr/toastr.scss";
+
+@import '~sweetalert2/dist/sweetalert2.css';
+
 .content-wrapper {
     background: #e2eaf5!important;
 }
+
+.card-header-custom {
+	background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: .35rem 1.5rem;
+    position: relative;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+.table td, .table th {
+    padding: .45rem!important;
+}
+
+.swal2-icon{
+	width: 4em!important;
+    height: 4em!important;
+}
+
+.swal2-title{
+	font-size:18px!important;
+}
+
+.swal2-content{
+	font-size:15px!important;
+}
+
+.swal2-styled.swal2-confirm {
+	font-size:14px!important;
+}
+
+.swal2-styled.swal2-cancel {
+	font-size:14px!important;
+}
+
+
+
+
+
