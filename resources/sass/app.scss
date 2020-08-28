@@ -61,6 +61,24 @@
 .swal2-styled.swal2-cancel {
 	font-size:14px!important;
 }
+.block-loading 
+{
+    z-index: 9999;
+    display: flex;
+    background: url(/images/loading.gif?9783e0a…) #eee center center no-repeat;
+    position: fixed;
+    z-index: 1060;
+    opacity: 0.7;
+    flex-direction: row;
+    justify-content: center;
+    overflow-x: hidden;
+    padding: .625em;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;    
+}
+
 
 
 

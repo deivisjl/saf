@@ -4,6 +4,7 @@
 <!-- Content Header (Page header) -->
 <div class="content-header">
 </div>
+<div id="loading"></div>
 <!-- /.content-header -->
 <section class="content">
     <div class="container-fluid">
@@ -86,15 +87,20 @@
                   cancelButtonText: 'Cancelar'
                 }).then((result) => {
                    if (result.value) {
+                      $("#loading").removeClass("hidden");
+                      $("#loading").addClass("block-loading");
                       axios.delete('/permisos/'+id)
                           .then(response => {
+                              $("#loading").addClass("hidden");
+                              $("#loading").removeClass("block-loading");
                               Toastr.success(response.data.data,'Mensaje')
-                                $('#listar').DataTable().ajax.reload();
-                              
+                              table._fnAjaxUpdate() //actualizar datatable
                           })
                           .catch(error => {
-                              if (error.response) {
-                                  Toastr.error(error.response.data.error,''); 
+                              $("#loading").addClass("hidden");
+                              $("#loading").removeClass("block-loading");
+                              if (error.response.data.code === 423) {
+                                  Toastr.error(error.response.data.error,'Mensaje'); 
                               }else{
                                   Toastr.error('Ocurrió un error: ' + error,'Error');
                               }

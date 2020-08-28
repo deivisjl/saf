@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Acceso;
 
+use App\RolPermiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class PermisoController extends Controller
 {
@@ -44,7 +46,25 @@ class PermisoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try 
+        {
+            $rules = [
+                'nombre' => 'required'
+            ];
+
+            $this->validate($request, $rules);
+
+            $permiso = new Permission();
+            $permiso->name = $request->nombre;
+            $permiso->guard_name = "web";
+            $permiso->save();
+
+            return $this->successResponse('Registro guardado con éxito');
+        } 
+        catch (\Exception $e) 
+        {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     /**
@@ -91,7 +111,9 @@ class PermisoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permiso = Permission::findOrfail($id);
+
+        return view('accesos.permisos.edit',['permiso' => $permiso]);
     }
 
     /**
@@ -103,7 +125,24 @@ class PermisoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try 
+        {
+            $rules = [
+                'nombre' => 'required'
+            ];
+
+            $this->validate($request, $rules);
+
+            $permiso = Permission::findOrFail($id);
+            $permiso->name = $request->nombre;
+            $permiso->save();
+
+            return $this->successResponse('Registro actualizado con éxito');
+        } 
+        catch (\Exception $e) 
+        {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     /**
@@ -114,6 +153,23 @@ class PermisoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try 
+        {
+            $permiso = Permission::findOrFail($id);
+            $verificar = RolPermiso::where('permission_id',$id)->first();
+
+            if($verificar)
+            {
+                throw new \Exception("No se puede eliminar porque tiene registros asociados", 1);
+            }
+
+            $permiso->delete();
+
+            return $this->successResponse('Registro eliminado con éxito');
+        } 
+        catch (\Exception $e) 
+        {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 }
