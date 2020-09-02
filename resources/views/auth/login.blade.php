@@ -19,12 +19,14 @@
 <body class="hold-transition login-page">
     <div id="app">
         <div class="login-box">
-          <div class="login-logo">
-            <a href="/l"><b>SAF</b></a>
-          </div>
           <!-- /.login-logo -->
           <div class="card">
             <div class="card-body login-card-body">
+              <div class="ribbon-wrapper">
+                  <div class="ribbon bg-primary">
+                      <strong>SAF</strong>
+                  </div>
+              </div>
               <p class="login-box-msg">Ingresar credenciales</p>
 
               <form action="{{ route('login') }}" method="post" autocomplete="off">

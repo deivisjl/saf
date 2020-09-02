@@ -47,11 +47,16 @@ Vue.use(VeeValidate, config);
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('error-form', require('./components/shared/ErrorComponent').default);
 
+/* Componente permisos */
 Vue.component('nuevo-permiso-component', require('./components/accesos/permisos/NuevoPermisoComponent.vue').default);
 Vue.component('editar-permiso-component', require('./components/accesos/permisos/EditarPermisoComponent.vue').default);
 
+/* Componentes rol */
 Vue.component('nuevo-rol-component', require('./components/accesos/roles/NuevoRolComponent.vue').default);
 Vue.component('editar-rol-component', require('./components/accesos/roles/EditarRolComponent.vue').default);
+
+/* Componente usuario rol */
+Vue.component('usuario-rol-component', require('./components/accesos/usuario-rol/UsuarioRolComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

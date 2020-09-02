@@ -202,4 +202,11 @@ class RolController extends Controller
 
         return $this->showAll($permisos);
     }
+
+    public function roles()
+    {
+        $roles = Rol::all();
+
+        return $this->showAll($roles);
+    }
 }

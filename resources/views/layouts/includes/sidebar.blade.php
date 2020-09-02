@@ -35,7 +35,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
+                <a href="{{ route('usuarios-roles.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Asignar roles</p>
                 </a>

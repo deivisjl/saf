@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +24,9 @@ Route::get('permisos-obtener','Acceso\PermisoController@obtener');
 
 Route::resource('roles','Acceso\RolController');
 Route::get('roles-permisos/{id}','Acceso\RolController@rol_permisos');
+Route::get('roles-obtener','Acceso\RolController@roles');
+
+/* Rutas de usuarios */
+Route::resource('usuarios','Acceso\UsuarioController');
+Route::resource('usuarios-roles','Acceso\UsuarioRolController',['except' =>['create','destroy']]);
+Route::get('usuario-rol/{id}','Acceso\UsuarioRolController@listado_roles');
