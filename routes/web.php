@@ -11,10 +11,14 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('logout','Auth\LoginController@logout')->name('logout');
 Route::get('/','HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('permisos','Acceso\PermisoController');
+Route::get('permisos-obtener','Acceso\PermisoController@obtener');
+
+Route::resource('roles','Acceso\RolController');
+Route::get('roles-permisos/{id}','Acceso\RolController@rol_permisos');

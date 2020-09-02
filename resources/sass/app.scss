@@ -79,6 +79,18 @@
     left: 0;    
 }
 
+.navbar-lightblue
+{
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#0f5598), color-stop(60%, #0b549a), to(#02325f))!important;
+    background-image: linear-gradient(#3c8dbc, #196996 60%, #134c6d)!important;
+    background-repeat: no-repeat!important;
+}
+
+.navbar-dark .navbar-nav .nav-link 
+{
+    color: #fff !important;
+}
+
 
 
 

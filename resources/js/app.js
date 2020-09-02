@@ -50,6 +50,9 @@ Vue.component('error-form', require('./components/shared/ErrorComponent').defaul
 Vue.component('nuevo-permiso-component', require('./components/accesos/permisos/NuevoPermisoComponent.vue').default);
 Vue.component('editar-permiso-component', require('./components/accesos/permisos/EditarPermisoComponent.vue').default);
 
+Vue.component('nuevo-rol-component', require('./components/accesos/roles/NuevoRolComponent.vue').default);
+Vue.component('editar-rol-component', require('./components/accesos/roles/EditarRolComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

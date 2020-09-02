@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Acceso;
 
+use App\Rol;
 use App\RolPermiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Permission;
 
-class PermisoController extends Controller
+class RolController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:Crear permisos')->only(['create','store']);
-        $this->middleware('permission:Navegar permisos')->only(['index']);
-        $this->middleware('permission:Editar permisos')->only(['edit','update']);
-        $this->middleware('permission:Navegar permisos')->only(['show']);
-        $this->middleware('permission:Eliminar permisos')->only(['destroy']);
+        $this->middleware('permission:Crear roles')->only(['create','store']);
+        $this->middleware('permission:Navegar roles')->only(['index']);
+        $this->middleware('permission:Editar roles')->only(['edit','update']);
+        $this->middleware('permission:Navegar roles')->only(['show']);
+        $this->middleware('permission:Eliminar roles')->only(['destroy']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +26,7 @@ class PermisoController extends Controller
      */
     public function index()
     {
-        return view('accesos.permisos.index');
+        return view('accesos.roles.index');
     }
 
     /**
@@ -35,7 +36,7 @@ class PermisoController extends Controller
      */
     public function create()
     {
-        return view('accesos.permisos.create');
+        return view('accesos.roles.create');
     }
 
     /**
@@ -49,17 +50,28 @@ class PermisoController extends Controller
         try 
         {
             $rules = [
-                'nombre' => 'required'
+                'nombre' => 'required',
+                'permisos' => 'nullable|array'
             ];
 
             $this->validate($request, $rules);
 
-            $permiso = new Permission();
-            $permiso->name = $request->nombre;
-            $permiso->guard_name = "web";
-            $permiso->save();
+            return DB::transaction(function() use($request){
 
-            return $this->successResponse('Registro guardado con éxito');
+                $rol = new Rol();
+                $rol->name = $request->nombre;
+                $rol->guard_name = 'web';
+                $rol->save();
+
+                foreach ($request->permisos as $key => $value) {
+                    RolPermiso::create([
+                        'permission_id' => $value,
+                        'role_id' => $rol->id
+                    ]);
+                }
+
+                return $this->successResponse('Registro guardado con éxito');
+            });
         } 
         catch (\Exception $e) 
         {
@@ -70,7 +82,7 @@ class PermisoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
@@ -81,7 +93,7 @@ class PermisoController extends Controller
         
         $criterio = $request['search']['value'];
 
-        $permisos = DB::table('permissions') 
+        $roles = DB::table('roles') 
                 ->select('id','name as nombre') 
                 ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
                 ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
@@ -89,7 +101,7 @@ class PermisoController extends Controller
                 ->take($request['length'])
                 ->get();
               
-        $count = DB::table('permissions')                               
+        $count = DB::table('roles')                               
                 ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
                 ->count();
                
@@ -97,47 +109,59 @@ class PermisoController extends Controller
             'draw' => $request->draw,
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
-            'data' => $permisos,
+            'data' => $roles,
             );
         return response()->json($data, 200);
-
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $permiso = Permission::findOrfail($id);
+        $rol = Rol::findOrFail($id);
 
-        return view('accesos.permisos.edit',['permiso' => $permiso]);
+        return view('accesos.roles.edit',['rol' => $rol]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Rol $role)
     {
         try 
         {
             $rules = [
-                'nombre' => 'required'
+                'nombre' => 'required',
+                'permisos' => 'nullable|array'
             ];
 
             $this->validate($request, $rules);
 
-            $permiso = Permission::findOrFail($id);
-            $permiso->name = $request->nombre;
-            $permiso->save();
+            return DB::transaction(function() use($request, $role){
 
-            return $this->successResponse('Registro actualizado con éxito');
+                $role->rol_permiso()->delete();
+
+                foreach ($request->permisos as $key => $value) {
+                    RolPermiso::create([
+                        'permission_id' => $value,
+                        'role_id' => $role->id
+                    ]);
+                }
+
+                $role->name = $request->get('nombre');
+                $role->save();
+
+                return $this->successResponse('Registro actualizado con éxito');
+            });
         } 
         catch (\Exception $e) 
         {
@@ -148,22 +172,21 @@ class PermisoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Rol $role)
     {
         try 
         {
-            $permiso = Permission::findOrFail($id);
-            $verificar = RolPermiso::where('permission_id',$id)->first();
+            $verificar = RolPermiso::where('role_id',$role->id)->first();
 
             if($verificar)
             {
                 throw new \Exception("No se puede eliminar porque tiene registros asociados", 1);
             }
 
-            $permiso->delete();
+            $role->delete();
 
             return $this->successResponse('Registro eliminado con éxito');
         } 
@@ -173,17 +196,10 @@ class PermisoController extends Controller
         }
     }
 
-    public function obtener()
+    public function rol_permisos($id)
     {
-        try 
-        {
-            $permisos = Permission::select(['id','name'])->get();
+        $permisos = RolPermiso::where('role_id',$id)->get();
 
-            return $this->showAll(collect($permisos));    
-        } 
-        catch (\Exception $e) 
-        {   
-            return $this->errorResponse($e->getMessage());
-        }
+        return $this->showAll($permisos);
     }
 }
