@@ -23,7 +23,7 @@
           <div class="card">
             <div class="card-body login-card-body">
               <div class="ribbon-wrapper">
-                  <div class="ribbon bg-primary">
+                  <div class="ribbon bg-primary text-md">
                       <strong>SAF</strong>
                   </div>
               </div>

@@ -2,7 +2,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
-      <span class="brand-text font-weight-light">SAF</span>
+      <img src="{{ asset('img/funeraria-logo.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+      <span class="brand-text ">FUNERARIA SAN JOSÉ</span>
     </a>
 
     <!-- Sidebar -->
