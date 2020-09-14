@@ -25,6 +25,31 @@
 
 @import '~sweetalert2/dist/sweetalert2.css';
 
+.navbar {
+    padding: .2rem;
+}
+
+.container-logo{
+    height: 60px;
+    border-bottom: 3px solid #eff32c;
+}
+
+.content{
+    background-color:#f1f2f3;
+    min-height: 100vh;
+}
+
+#logo{
+	overflow: hidden;
+	width: auto;
+}
+
+#logo > img{
+	display:block;
+    margin:auto;
+    height: 60px;
+}
+
 .content-wrapper {
     background: #e2eaf5!important;
 }
