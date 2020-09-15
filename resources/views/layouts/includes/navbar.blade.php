@@ -22,7 +22,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{{ route('categorias.index') }}">Categorías</a>
-          <a class="dropdown-item" href="{{ route('estado.index') }}">Estados</a>
+          <a class="dropdown-item" href="{{ route('estados.index') }}">Estados</a>
           <a class="dropdown-item" href="{{ route('forma-pago.index') }}">Formas de pago</a>
         </div>
     </li>

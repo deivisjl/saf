@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Administrar;
 
+use App\Estado;
 use App\Cliente;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ClienteController extends Controller
 {
@@ -15,7 +16,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -25,7 +26,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -36,7 +37,7 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Administrar;
 
 use App\Categoria;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 
 class CategoriaController extends Controller
 {
@@ -15,7 +17,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        return view('administrar.categorias.index');
     }
 
     /**
@@ -25,7 +27,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrar.categorias.create');
     }
 
     /**
@@ -36,7 +38,24 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try 
+        {
+            $rules = [
+                'nombre' => 'required'
+            ];
+
+            $this->validate($request, $rules);
+
+            $categoria = new Categoria();
+            $categoria->nombre = $request->nombre;
+            $categoria->save();
+
+            return $this->successResponse('Registro guardado con éxito');
+        } 
+        catch (\Exception $e) 
+        {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     /**
@@ -45,9 +64,33 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show(Request $request)
     {
-        //
+        $ordenadores = array("id","nombre");
+
+        $columna = $request['order'][0]["column"];
+        
+        $criterio = $request['search']['value'];
+
+        $permisos = DB::table('categoria') 
+                ->select('id','nombre') 
+                ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
+                ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
+                ->skip($request['start'])
+                ->take($request['length'])
+                ->get();
+              
+        $count = DB::table('categoria')                               
+                ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
+                ->count();
+               
+        $data = array(
+            'draw' => $request->draw,
+            'recordsTotal' => $count,
+            'recordsFiltered' => $count,
+            'data' => $permisos,
+            );
+        return response()->json($data, 200);
     }
 
     /**
@@ -58,7 +101,7 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        //
+        return view('administrar.categorias.edit',['categoria' => $categoria]);
     }
 
     /**
@@ -70,7 +113,23 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        try 
+        {
+            $rules = [
+                'nombre' => 'required'
+            ];
+
+            $this->validate($request, $rules);
+
+            $categoria->nombre = $request->nombre;
+            $categoria->save();
+
+            return $this->successResponse('Registro actualizado con éxito');
+        } 
+        catch (\Exception $e) 
+        {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     /**
@@ -81,6 +140,23 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        try 
+        {
+
+            $categoria->delete();
+
+            return $this->successResponse('Registro eliminado con éxito');
+        } 
+        catch (\Exception $e) 
+        {
+            if ($ex instanceof QueryException) {
+                $codigo = $ex->errorInfo[1];
+    
+                if ($codigo == 1451) {
+                    return $this->errorResponse('No se puede eliminar porque tiene registros asociados');
+                }
+            }
+            return $this->errorResponse($e->getMessage());
+        }
     }
 }

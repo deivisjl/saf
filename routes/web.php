@@ -18,7 +18,7 @@ Auth::routes(['register' => false, 'reset' => false]);
 Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' =>['auth']], function(){
-    
+
     Route::get('/','HomeController@index');
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -36,6 +36,6 @@ Route::group(['middleware' =>['auth']], function(){
 
     /* Catalogos */
     Route::resource('categorias','Administrar\CategoriaController');
-    Route::resource('estado','Administrar\EstadoController');
+    Route::resource('estados','Administrar\EstadoController');
     Route::resource('forma-pago','Administrar\FormaPagoController');
 });

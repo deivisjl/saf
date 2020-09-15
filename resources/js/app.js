@@ -58,6 +58,18 @@ Vue.component('editar-rol-component', require('./components/accesos/roles/Editar
 /* Componente usuario rol */
 Vue.component('usuario-rol-component', require('./components/accesos/usuario-rol/UsuarioRolComponent.vue').default);
 
+/* Componentes de categoria */
+Vue.component('nuevo-categoria-component', require('./components/administrar/categoria/NuevoCategoriaComponent').default);
+Vue.component('editar-categoria-component', require('./components/administrar/categoria/EditarCategoriaComponent').default);
+
+/* Componentes de estados */
+Vue.component('nuevo-estado-component', require('./components/administrar/estado/NuevoEstadoComponent').default);
+Vue.component('editar-estado-component', require('./components/administrar/estado/EditarEstadoComponent').default);
+
+/* Componentes de forma de pago */
+Vue.component('nuevo-forma-pago-component', require('./components/administrar/forma-pago/NuevoFormaPagoComponent').default);
+Vue.component('editar-forma-pago-component', require('./components/administrar/forma-pago/EditarFormaPagoComponent').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
