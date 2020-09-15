@@ -27,6 +27,7 @@
         @include('layouts.includes.navbar')
         
           <div class="container-fluid content">
+            <div class="content-header"></div>
                @yield('content')
           </div>
     </div>

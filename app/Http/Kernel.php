@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'preventbackbutton' => \App\Http\Middleware\PreventBackButton::class,
     ];
 
     /**

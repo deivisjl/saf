@@ -16,17 +16,26 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('logout','Auth\LoginController@logout')->name('logout');
-Route::get('/','HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('permisos','Acceso\PermisoController');
-Route::get('permisos-obtener','Acceso\PermisoController@obtener');
+Route::group(['middleware' =>['auth']], function(){
+    
+    Route::get('/','HomeController@index');
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('roles','Acceso\RolController');
-Route::get('roles-permisos/{id}','Acceso\RolController@rol_permisos');
-Route::get('roles-obtener','Acceso\RolController@roles');
+    Route::resource('permisos','Acceso\PermisoController');
+    Route::get('permisos-obtener','Acceso\PermisoController@obtener');
 
-/* Rutas de usuarios */
-Route::resource('usuarios','Acceso\UsuarioController');
-Route::resource('usuarios-roles','Acceso\UsuarioRolController',['except' =>['create','destroy']]);
-Route::get('usuario-rol/{id}','Acceso\UsuarioRolController@listado_roles');
+    Route::resource('roles','Acceso\RolController');
+    Route::get('roles-permisos/{id}','Acceso\RolController@rol_permisos');
+    Route::get('roles-obtener','Acceso\RolController@roles');
+
+    /* Rutas de usuarios */
+    Route::resource('usuarios','Acceso\UsuarioController');
+    Route::resource('usuarios-roles','Acceso\UsuarioRolController',['except' =>['create','destroy']]);
+    Route::get('usuario-rol/{id}','Acceso\UsuarioRolController@listado_roles');
+
+    /* Catalogos */
+    Route::resource('categorias','Administrar\CategoriaController');
+    Route::resource('estado','Administrar\EstadoController');
+    Route::resource('forma-pago','Administrar\FormaPagoController');
+});

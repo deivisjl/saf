@@ -66,6 +66,11 @@
 <!-- /.login-box -->
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>
+        $(document).ready(function(e){
+            window.history.deleteAll();
+        });
+    </script>
     </div>
 </body>
 </html>

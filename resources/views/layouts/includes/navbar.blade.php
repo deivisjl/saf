@@ -16,6 +16,16 @@
             <a class="dropdown-item" href="{{ route('usuarios-roles.index') }}">Asignar roles</a>
           </div>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Catálogos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ route('categorias.index') }}">Categorías</a>
+          <a class="dropdown-item" href="{{ route('estado.index') }}">Estados</a>
+          <a class="dropdown-item" href="{{ route('forma-pago.index') }}">Formas de pago</a>
+        </div>
+    </li>
       <li class="nav-item active">
         {{-- <a class="nav-link" href="#">Home</a> --}}
       </li>
@@ -24,7 +34,7 @@
   <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-          <a class="nav-link btn btn-outline-info" data-toggle="dropdown" href="#">
+          <a class="nav-link btn btn-outline-success" data-toggle="dropdown" href="#">
              {{ Auth::user()->nombres }} {{ Auth::user()->apellidos }}
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
