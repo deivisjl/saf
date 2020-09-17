@@ -27,7 +27,9 @@
                       <strong>SAF</strong>
                   </div>
               </div>
-              <p class="login-box-msg">Ingresar credenciales</p>
+              <img src="{{ asset('img/funeraria-logo.png') }}" alt="logo" style="height: 75px; display:block; margin:auto">
+
+              <p class="login-box-msg">Introducir credenciales</p>
 
               <form action="{{ route('login') }}" method="post" autocomplete="off">
                 @csrf
