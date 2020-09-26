@@ -78,6 +78,10 @@ Vue.component('editar-proveedor-component', require('./components/administrar/pr
 Vue.component('nuevo-cliente-component', require('./components/administrar/cliente/NuevoClienteComponent').default);
 Vue.component('editar-cliente-component', require('./components/administrar/cliente/EditarClienteComponent').default);
 
+/* Componentes de proveedor */
+Vue.component('nuevo-producto-component', require('./components/administrar/producto/NuevoProductoComponent').default);
+Vue.component('editar-producto-component', require('./components/administrar/producto/EditarProductoComponent').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

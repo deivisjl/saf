@@ -40,4 +40,5 @@ Route::group(['middleware' =>['auth','preventbackbutton']], function(){
     Route::resource('forma-pago','Administrar\FormaPagoController');
     Route::resource('proveedores', 'Administrar\ProveedorController');
     Route::resource('clientes','Administrar\ClienteController');
+    Route::resource('productos','Administrar\ProductoController');
 });

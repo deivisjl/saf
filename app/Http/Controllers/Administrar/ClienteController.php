@@ -142,7 +142,7 @@ class ClienteController extends Controller
             $cliente->direccion = $request->direccion;
             $cliente->save();
 
-            return $this->successResponse('Registro guardado con éxito');
+            return $this->successResponse('Registro actualizado con éxito');
         } 
         catch (\Exception $e) 
         {

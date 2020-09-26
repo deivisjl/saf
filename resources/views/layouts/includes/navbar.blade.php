@@ -27,10 +27,11 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{{ route('proveedores.index') }}">Proveedores</a>
           <a class="dropdown-item" href="{{ route('clientes.index') }}">Clientes</a>
+          <a class="dropdown-item" href="{{ route('productos.index') }}">Productos</a>
         </div>
     </li>
       <li class="nav-item active">
-        {{-- <a class="nav-link" href="#">Home</a> --}}
+        <a class="nav-link" href="#">Compras</a>
       </li>
     </ul>
     <!-- Right navbar links -->
