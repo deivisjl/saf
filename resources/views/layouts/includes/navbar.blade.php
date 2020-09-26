@@ -18,12 +18,15 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Catálogos
+          Gestión
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{{ route('categorias.index') }}">Categorías</a>
           <a class="dropdown-item" href="{{ route('estados.index') }}">Estados</a>
           <a class="dropdown-item" href="{{ route('forma-pago.index') }}">Formas de pago</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{ route('proveedores.index') }}">Proveedores</a>
+          <a class="dropdown-item" href="{{ route('clientes.index') }}">Clientes</a>
         </div>
     </li>
       <li class="nav-item active">

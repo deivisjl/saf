@@ -70,6 +70,14 @@ Vue.component('editar-estado-component', require('./components/administrar/estad
 Vue.component('nuevo-forma-pago-component', require('./components/administrar/forma-pago/NuevoFormaPagoComponent').default);
 Vue.component('editar-forma-pago-component', require('./components/administrar/forma-pago/EditarFormaPagoComponent').default);
 
+/* Componentes de proveedor */
+Vue.component('nuevo-proveedor-component', require('./components/administrar/proveedor/NuevoProveedorComponent').default);
+Vue.component('editar-proveedor-component', require('./components/administrar/proveedor/EditarProveedorComponent').default);
+
+/* Componentes de proveedor */
+Vue.component('nuevo-cliente-component', require('./components/administrar/cliente/NuevoClienteComponent').default);
+Vue.component('editar-cliente-component', require('./components/administrar/cliente/EditarClienteComponent').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -17,7 +17,7 @@ Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('logout','Auth\LoginController@logout')->name('logout');
 
-Route::group(['middleware' =>['auth']], function(){
+Route::group(['middleware' =>['auth','preventbackbutton']], function(){
 
     Route::get('/','HomeController@index');
     Route::get('/home', 'HomeController@index')->name('home');
@@ -38,4 +38,6 @@ Route::group(['middleware' =>['auth']], function(){
     Route::resource('categorias','Administrar\CategoriaController');
     Route::resource('estados','Administrar\EstadoController');
     Route::resource('forma-pago','Administrar\FormaPagoController');
+    Route::resource('proveedores', 'Administrar\ProveedorController');
+    Route::resource('clientes','Administrar\ClienteController');
 });
