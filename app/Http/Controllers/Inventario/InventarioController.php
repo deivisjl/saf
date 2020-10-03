@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Inventario;
 
-use App\Http\Controllers\Controller;
 use App\Inventario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class InventarioController extends Controller
 {
@@ -15,28 +16,7 @@ class InventarioController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('inventario.index');
     }
 
     /**
@@ -45,42 +25,36 @@ class InventarioController extends Controller
      * @param  \App\Inventario  $inventario
      * @return \Illuminate\Http\Response
      */
-    public function show(Inventario $inventario)
+    public function show(Request $request)
     {
-        //
-    }
+        $ordenadores = array("i.id","c.nombre","p.nombre","i.stock");
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Inventario  $inventario
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Inventario $inventario)
-    {
-        //
-    }
+        $columna = $request['order'][0]["column"];
+        
+        $criterio = $request['search']['value'];
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Inventario  $inventario
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Inventario $inventario)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Inventario  $inventario
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Inventario $inventario)
-    {
-        //
+        $productos = DB::table('inventario as i') 
+                ->join('producto as p','i.producto_id','p.id')
+                ->join('categoria as c','p.categoria_id','c.id')
+                ->select('i.id','c.nombre as categoria','p.nombre as producto','i.stock','p.stock_minimo as minimo')
+                ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
+                ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
+                ->skip($request['start'])
+                ->take($request['length'])
+                ->get();
+              
+        $count = DB::table('inventario as i') 
+                ->join('producto as p','i.producto_id','p.id')
+                ->join('categoria as c','p.categoria_id','c.id')                             
+                ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
+                ->count();
+               
+        $data = array(
+            'draw' => $request->draw,
+            'recordsTotal' => $count,
+            'recordsFiltered' => $count,
+            'data' => $productos,
+            );
+        return response()->json($data, 200);
     }
 }

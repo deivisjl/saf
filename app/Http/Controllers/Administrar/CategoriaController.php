@@ -72,7 +72,7 @@ class CategoriaController extends Controller
         
         $criterio = $request['search']['value'];
 
-        $permisos = DB::table('categoria') 
+        $categorias = DB::table('categoria') 
                 ->select('id','nombre') 
                 ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
                 ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
@@ -88,7 +88,7 @@ class CategoriaController extends Controller
             'draw' => $request->draw,
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
-            'data' => $permisos,
+            'data' => $categorias,
             );
         return response()->json($data, 200);
     }

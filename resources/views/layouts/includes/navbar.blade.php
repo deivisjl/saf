@@ -31,7 +31,10 @@
         </div>
     </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Compras</a>
+        <a class="nav-link" href="{{ route('compras.index') }}">Compras</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ route('inventario.index') }}">Inventario</a>
       </li>
     </ul>
     <!-- Right navbar links -->
