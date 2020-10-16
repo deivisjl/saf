@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Compra;
 
 use App\Compra;
 use App\Estado;
+use App\Producto;
 use App\FormaPago;
 use App\Proveedor;
 use Illuminate\Http\Request;
@@ -32,8 +33,9 @@ class CompraController extends Controller
         $formas = FormaPago::all();
         $estados = Estado::all();
         $proveedores = Proveedor::all();
+        $productos = Producto::all();
         
-        return view('compra.create',['formas' => $formas, 'estados' => $estados, 'proveedores' => $proveedores]);
+        return view('compra.create',['formas' => $formas, 'estados' => $estados, 'proveedores' => $proveedores, 'productos' => $productos]);
     }
 
     /**

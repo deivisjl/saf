@@ -12,7 +12,7 @@
                         <h3 class="card-title">Ingreso de productos</h3>
                     </div>
                     <div class="card-body">
-                        <compra-component :estados="{{ $estados }}" :formas_pago="{{ $formas }}" :proveedores="{{ $proveedores }}"></compra-component>
+                        <compra-component :estados="{{ $estados }}" :formas_pago="{{ $formas }}" :proveedores="{{ $proveedores }}" :productos="{{ $productos }}"></compra-component>
                     </div>
                 </div>
             </div>

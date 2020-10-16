@@ -22,7 +22,6 @@ class CreateVentaTable extends Migration
             $table->bigInteger('estado_id')->unsigned();
             $table->bigInteger('forma_pago_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('cliente');
-            $table->foreign('estado_id')->references('id')->on('estado');
             $table->foreign('forma_pago_id')->references('id')->on('forma_pago');
             $table->timestamps();
         });

@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label for="" class="col-form-label">Producto</label>
                         <select name="producto" id="producto" class="custom-select" v-validate="'required'" v-model="modelo.producto">
-                                <template v-for="item in proveedores_disponibles">
+                                <template v-for="item in productos_disponibles">
                                     <option :value="item">{{ item.nombre }}</option>
                                 </template>
                             </select>
@@ -133,6 +133,7 @@
                 estados_disponibles:[],
                 formas_pago_disponibles:[],
                 proveedores_disponibles:[],
+                productos_disponibles:[],
 
                 modelo:{
                     proveedor:'',
@@ -153,11 +154,13 @@
             this.estados_disponibles = this.estados
             this.formas_pago_disponibles = this.formas_pago
             this.proveedores_disponibles = this.proveedores
+            this.productos_disponibles = this.productos
         },
         props:{
             estados:{},
             formas_pago:{},
-            proveedores:{}
+            proveedores:{},
+            productos:{}
         },        
         created(){
             
@@ -199,6 +202,7 @@
                  this.lista.push(data)
                  this.modelo.precio = '';
                  this.modelo.cantidad = '';
+                 this.modelo.producto = '';
                  this.$validator.reset();
             },
             guardar(){
