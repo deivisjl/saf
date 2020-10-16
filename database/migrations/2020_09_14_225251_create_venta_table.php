@@ -19,7 +19,6 @@ class CreateVentaTable extends Migration
             $table->bigInteger('factura_no');
             $table->string('serie');
             $table->decimal('monto',6,2);
-            $table->bigInteger('estado_id')->unsigned();
             $table->bigInteger('forma_pago_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('cliente');
             $table->foreign('forma_pago_id')->references('id')->on('forma_pago');

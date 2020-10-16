@@ -23,8 +23,7 @@
                                 <th>Proveedor</th>
                                 <th>Monto</th>
                                 <th>Forma de pago</th>
-                                <th>Estado</th>
-                                <th>Acción</th>
+                                <th>Estado de la compra</th>
                               </tr>
                             </thead> 
                         </table>
@@ -57,8 +56,7 @@
               {'data':'proveedor'},
               {'data':'monto'},
               {'data':'forma_pago'},
-              {'data':'estado'},   
-              {'defaultContent':'<a href="" class="borrar btn btn-danger btn-xs"  data-toggle="tooltip" data-placement="top" title="Borrar registro"><i class="fa fa-trash"></i> Eliminar</a>', "orderable":false}
+              {'data':'estado'}
           ],
           "language": language_spanish,
           "order": [[ 0, "asc" ]]

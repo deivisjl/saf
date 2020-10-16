@@ -14,6 +14,7 @@ class CreatePagoVentaTable extends Migration
     public function up()
     {
         Schema::create('pago_venta', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('factura_venta_id')->unsigned();
             $table->decimal('monto');
             $table->timestamps();

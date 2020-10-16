@@ -98,25 +98,30 @@
         </div>
         <!-- Total -->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4 offset-md-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Forma de pago</label>
+                        <div class="col-sm-6">
+                            <select name="forma" id="forma" class="custom-select" v-validate="'required'" v-model="modelo.forma_pago">
+                                <template v-for="item in formas_pago_disponibles">
+                                    <option :value="item">{{ item.nombre }}</option>
+                                </template>
+                            </select>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <h3 class="float-right">Total Q. <span v-text="formatPrice(modelo.total)"></span></h3>
             </div>
         </div>
         <!-- Forma de pago -->
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group float-right">
-                    <label for="" class="control-label">Forma de pago</label>
-                    <select name="forma" id="forma" class="custom-select">
-                        <template v-for="item in formas_pago_disponibles">
-                            <option :value="item">{{ item.nombre }}</option>
-                        </template>
-                    </select>
-                </div>
+                
             </div>
         </div>
         <!-- Guardar -->
-        <div class="row">
+        <div class="row" v-if="lista.length > 0">
             <div class="col-md-12">
                 <button class="btn btn-primary btn-block btn-lg" @click.prevent="validar('proveedor')">Guardar</button>
             </div>
@@ -138,6 +143,7 @@
                 modelo:{
                     proveedor:'',
                     no_factura:'',
+                    forma_pago:'',
                     fecha:'',
                     producto:'',
                     precio:'',
@@ -174,7 +180,14 @@
             validar(scope){
                 this.$validator.validateAll(scope).then((result) =>{
                         if(result){
-                          //this.guardar();
+                          if(this.modelo.forma_pago == '')
+                          {
+                              Toastr.error('Debe seleccionar una forma de pago','Mensaje');
+                          }
+                          else
+                          {
+                              this.guardar();
+                          }
                         }             
                   });
             },
@@ -207,18 +220,31 @@
             },
             guardar(){
                 let data = {
-                    'nombre':this.nombre
+                    'productos':this.lista,
+                    'forma_pago':this.modelo.forma_pago.id,
+                    'proveedor':this.modelo.proveedor,
+                    'fecha':this.modelo.fecha,
+                    'factura':this.modelo.no_factura,
+                    'total':this.modelo.total
                 }
                 this.loading = true
-                axios.post(abs_path + '/categorias',data)
+                axios.post(abs_path + '/compras',data)
                     .then(r => {
-                        this.loading = false
+                        this.lista = []
+                        this.modelo.forma_pago = ''
+                        this.modelo.proveedor = ''
+                        this.modelo.fecha = ''
+                        this.modelo.no_factura = ''
+                        this.modelo.total = 0.00
+                        this.$validator.reset();
+                        
                         Toastr.success(r.data.data,'Mensaje')
-                        window.location.href = abs_path + '/categorias'
                     })
                     .catch(error => {
-                        this.loading = false
                         Toastr.error(error.response.data.error,'Mensaje')
+                    })
+                    .finally(()=>{
+                        this.loading = false
                     })
             },
             
@@ -229,8 +255,9 @@
             let self = this
                let dict = {
                 custom:{
-                  nombre:{
-                      required:'El nombre de la categoría es requerido'
+                  fecha:{
+                      required:'La fecha es requerida',
+                      date:'La fecha debe tener un formato válido'
                   },
                 }
                }

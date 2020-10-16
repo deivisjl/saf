@@ -18,7 +18,6 @@ class CreateCompraTable extends Migration
             $table->string('factura_no');
             $table->decimal('monto',6,2);
             $table->date('fecha_emision');
-            $table->bigInteger('estado_id')->unsigned();
             $table->bigInteger('forma_pago_id')->unsigned();
             $table->bigInteger('proveedor_id')->unsigned();
             $table->foreign('forma_pago_id')->references('id')->on('forma_pago');
