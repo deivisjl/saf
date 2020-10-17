@@ -1,29 +1,23 @@
 <template>
     <div>
         <div class="block-loading" v-if="loading"></div>
-        <form method="POST" autocomplete="false" data-vv-scope="proveedor">
+        <form method="POST" autocomplete="false" data-vv-scope="cliente">
             <div class="row">
-                <div class="col-md-4">
-                    <label for="" class="col-form-label">Proveedor</label>
-                    <select name="proveedor" id="proveedor" class="custom-select" v-validate="'required'" v-model="modelo.proveedor">
-                        <template v-for="item in proveedores_disponibles">
-                            <option :value="item.id">{{ item.nombre }}</option>
-                        </template>
-                    </select>
-                    <error-form :attribute_name="'proveedor.proveedor'" :errors_form="errors"></error-form>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-10">
                     <div class="form-group">
-                        <label for="" class="col-form-label">No. de factura</label>
-                        <input type="text" class="form-control" name="factura" v-model="modelo.no_factura" v-validate="'required'">
-                        <error-form :attribute_name="'proveedor.factura'" :errors_form="errors"></error-form>
+                        <label for="" class="col-form-label">Nombre del cliente</label>
+                        <select name="cliente" id="cliente" class="custom-select" v-validate="'required'" v-model="modelo.cliente">
+                            <template v-for="item in clientes_disponibles">
+                                <option :value="item.id">{{ item.nombres }} {{ item.apellidos }}</option>
+                            </template>
+                        </select>
+                        <error-form :attribute_name="'cliente.cliente'" :errors_form="errors"></error-form>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <div class="form-group">
-                        <label for="" class="col-form-label">Fecha de emisión</label>
-                        <input type="date" class="form-control" v-model="modelo.fecha" v-validate="'required'" name="fecha" >
-                        <error-form :attribute_name="'proveedor.fecha'" :errors_form="errors"></error-form>
+                        <label for="" class="col-form-label">&nbsp;</label>
+                            <button class="btn btn-success btn-lg btn-block" @click.prevent="mostrar_modal()"><i class="fas fa-plus"></i> Registrar cliente</button>
                     </div>
                 </div>
             </div>
@@ -114,18 +108,29 @@
                 <h3 class="float-right">Total Q. <span v-text="formatPrice(modelo.total)"></span></h3>
             </div>
         </div>
-        <!-- Forma de pago -->
-        <div class="row">
-            <div class="col-md-12">
-                
-            </div>
-        </div>
         <!-- Guardar -->
         <div class="row" v-if="lista.length > 0">
             <div class="col-md-12">
-                <button class="btn btn-primary btn-block btn-lg" @click.prevent="validar('proveedor')">Guardar</button>
+                <button class="btn btn-primary btn-block btn-lg" @click.prevent="validar('cliente')">Guardar</button>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" data-backdrop="static" id="nuevoRegistro">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <modal-cliente-component v-if="form_modal"></modal-cliente-component>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
     </div>
 </template>
 
@@ -137,14 +142,14 @@
                 loading:false,
                 
                 formas_pago_disponibles:[],
-                proveedores_disponibles:[],
+                clientes_disponibles:[],
                 productos_disponibles:[],
 
+                form_modal:false,
+
                 modelo:{
-                    proveedor:'',
-                    no_factura:'',
+                    cliente:'',
                     forma_pago:'',
-                    fecha:'',
                     producto:'',
                     precio:'',
                     cantidad:'',                    
@@ -158,19 +163,35 @@
             this.config_error()
 
             this.formas_pago_disponibles = this.formas_pago
-            this.proveedores_disponibles = this.proveedores
+            this.clientes_disponibles = this.clientes
             this.productos_disponibles = this.productos
         },
         props:{
-            estados:{},
             formas_pago:{},
-            proveedores:{},
+            clientes:{},
             productos:{}
         },        
         created(){
-            
+             $('#nuevoRegistro').on('hidden.bs.modal', function (e) {
+                    this.form_modal = false
+                })
+            events.$on('cerrar_modal', this.event_cerrar_modal)
+        },
+
+        beforeDestroy()
+        {
+            events.$off('cerrar_modal',this.event_cerrar_modal)
         },
         methods:{
+            event_cerrar_modal(data){
+                this.form_modal = false
+                $('#nuevoRegistro').modal('hide')
+            },
+            mostrar_modal()
+            {
+                this.form_modal = true
+                $('#nuevoRegistro').modal('toggle')
+            },
             quitar(index)
             {
                 this.modelo.total = parseFloat(this.modelo.total) - parseFloat(this.lista[index].subtotal )
@@ -221,17 +242,15 @@
                 let data = {
                     'productos':this.lista,
                     'forma_pago':this.modelo.forma_pago.id,
-                    'proveedor':this.modelo.proveedor,
-                    'fecha':this.modelo.fecha,
-                    'factura':this.modelo.no_factura,
+                    'cliente':this.modelo.cliente,
                     'total':this.modelo.total
                 }
                 this.loading = true
-                axios.post(abs_path + '/compras',data)
+                axios.post(abs_path + '/ventas',data)
                     .then(r => {
                         this.lista = []
                         this.modelo.forma_pago = ''
-                        this.modelo.proveedor = ''
+                        this.modelo.cliente = ''
                         this.modelo.fecha = ''
                         this.modelo.no_factura = ''
                         this.modelo.total = 0.00

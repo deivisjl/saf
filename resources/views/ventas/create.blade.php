@@ -9,10 +9,10 @@
             <div class="col-md-10 offset-md-1">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Ingreso de productos</h3>
+                        <h3 class="card-title">Venta de productos</h3>
                     </div>
                     <div class="card-body">
-                        <compra-component :formas_pago="{{ $formas }}" :proveedores="{{ $proveedores }}" :productos="{{ $productos }}"></compra-component>
+                        <venta-component :formas_pago="{{ $formaPago }}" :clientes="{{ $clientes }}" :productos="{{ $productos }}"></venta-component>
                     </div>
                 </div>
             </div>

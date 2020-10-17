@@ -16,8 +16,8 @@ class CreateVentaTable extends Migration
         Schema::create('venta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('cliente_id')->unsigned();
-            $table->bigInteger('factura_no');
-            $table->string('serie');
+            $table->bigInteger('factura_no')->nullable();
+            $table->string('serie')->nullable();
             $table->decimal('monto',6,2);
             $table->bigInteger('forma_pago_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('cliente');

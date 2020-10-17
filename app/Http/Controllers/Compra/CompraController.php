@@ -33,11 +33,10 @@ class CompraController extends Controller
     public function create()
     {
         $formas = FormaPago::all();
-        $estados = Estado::all();
         $proveedores = Proveedor::all();
         $productos = Producto::all();
         
-        return view('compra.create',['formas' => $formas, 'estados' => $estados, 'proveedores' => $proveedores, 'productos' => $productos]);
+        return view('compra.create',['formas' => $formas, 'proveedores' => $proveedores, 'productos' => $productos]);
     }
 
     /**
@@ -83,9 +82,9 @@ class CompraController extends Controller
                 $factura = new FacturaCompra();
                 $factura->numero = $compra->factura_no;
                 $factura->monto = $compra->monto;
-                $factura->saldo = ($compra->forma_pago == FormaPago::CREDITO) ? $compra->monto : 0;
+                $factura->saldo = ($compra->forma_pago_id == FormaPago::CREDITO) ? $compra->monto : 0;
                 $factura->compra_id = $compra->id;
-                $factura->estado_id = ($compra->forma_pago == FormaPago::CREDITO) ? Estado::PENDIENTE : Estado::CANCELADO;
+                $factura->estado_id = ($compra->forma_pago_id == FormaPago::CREDITO) ? Estado::PENDIENTE : Estado::CANCELADO;
                 $factura->save();
 
                 return response()->json(['data' => 'Compra registrada con éxito'],200);
@@ -105,7 +104,7 @@ class CompraController extends Controller
      */
     public function show(Request $request)
     {
-        $ordenadores = array("c.id","c.factura_no","p.nombre","c.monto","fp.nombre","fc.nombre");
+        $ordenadores = array("c.id","c.factura_no","p.nombre","c.monto","fp.nombre","e.nombre");
 
         $columna = $request['order'][0]["column"];
         

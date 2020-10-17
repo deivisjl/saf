@@ -16,6 +16,10 @@ window.Toastr = require('toastr');
 require('./bootstrap');
 require('./utils');
 
+window.events = new Vue();
+
+Vue.prototype.$eventHub = new Vue(); // Global event bus
+
 window.abs_path = '';
 
 import VeeValidate from 'vee-validate';
@@ -77,13 +81,15 @@ Vue.component('editar-proveedor-component', require('./components/administrar/pr
 /* Componentes de proveedor */
 Vue.component('nuevo-cliente-component', require('./components/administrar/cliente/NuevoClienteComponent').default);
 Vue.component('editar-cliente-component', require('./components/administrar/cliente/EditarClienteComponent').default);
+Vue.component('modal-cliente-component', require('./components/administrar/cliente/ModalClienteComponent').default);
 
 /* Componentes de proveedor */
 Vue.component('nuevo-producto-component', require('./components/administrar/producto/NuevoProductoComponent').default);
 Vue.component('editar-producto-component', require('./components/administrar/producto/EditarProductoComponent').default);
 
-/* Componentes de proveedor */
+/* Componentes de venta */
 Vue.component('compra-component', require('./components/compra/CompraComponent').default);
+Vue.component('venta-component', require('./components/venta/VentaComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

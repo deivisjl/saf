@@ -43,7 +43,10 @@ Route::group(['middleware' =>['auth','preventbackbutton']], function(){
     Route::resource('productos','Administrar\ProductoController');
 
     /* Compras */
-    Route::resource('compras','Compra\CompraController');
+    Route::resource('compras','Compra\CompraController',['only' =>['index','show','create','store']]);
+
+    /* Ventas */
+    Route::resource('ventas','Venta\VentaController',['only' =>['index','show','create','store']]);
 
     /* Inventario */
     Route::resource('inventario','Inventario\InventarioController',['only' =>['index','show']]);

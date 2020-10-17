@@ -36,6 +36,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="{{ route('inventario.index') }}">Inventario</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ route('ventas.index') }}">Ventas</a>
+      </li>
     </ul>
     <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
