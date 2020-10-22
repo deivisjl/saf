@@ -39,6 +39,15 @@
       <li class="nav-item active">
         <a class="nav-link" href="{{ route('ventas.index') }}">Ventas</a>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Pagos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ route('pago-proveedores.index') }}">Pago a proveedores</a>
+          <a class="dropdown-item" href="{{ route('pago-clientes.index') }}">Pago a clientes</a>
+        </div>
+    </li>
     </ul>
     <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">

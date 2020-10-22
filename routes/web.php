@@ -50,4 +50,14 @@ Route::group(['middleware' =>['auth','preventbackbutton']], function(){
 
     /* Inventario */
     Route::resource('inventario','Inventario\InventarioController',['only' =>['index','show']]);
+
+    /* Pago a proveedores */
+    Route::resource('pago-proveedores','Pagos\PagoProveedorController',['only' => ['index','show','store']]);
+    Route::get('pago-proveedores/{id}/detalle','Pagos\PagoProveedorController@detalle');
+    Route::get('pago-proveedores/{id}/abonar','Pagos\PagoProveedorController@abonar');
+
+    /* Pago de clientes */
+    Route::resource('pago-clientes','Pagos\PagoClienteController',['only' => ['index','show','store']]);
+    Route::get('pago-clientes/{id}/detalle','Pagos\PagoClienteController@detalle');
+    Route::get('pago-clientes/{id}/abonar','Pagos\PagoClienteController@abonar');
 });

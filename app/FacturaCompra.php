@@ -11,4 +11,13 @@ class FacturaCompra extends Model
      protected $fillable = [
         'id', 'numero', 'monto','saldo','compra_id','estado_id'
     ];
+
+    public function compra()
+    {
+        return $this->belongsTo(Compra::class);
+    }
+    public function pago_compra()
+    {
+        return $this->hasMany(PagoCompra::class);
+    }
 }

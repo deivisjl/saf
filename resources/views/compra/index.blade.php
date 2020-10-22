@@ -54,9 +54,20 @@
               {'data': 'id'},
               {'data':'factura_no'},
               {'data':'proveedor'},
-              {'data':'monto'},
+              {'data': 'monto', "render":function(data, type, row, meta){
+                        return '<span> Q.'+ data +'</span>'
+                       }
+              }, 
               {'data':'forma_pago'},
-              {'data':'estado'}
+              {'data': 'estado', "render":function(data, type, row, meta){
+                        var actual = row.estado;
+                          if(actual == 'Cancelado'){
+                            return '<span class="badge badge-success">'+ data +'</span>'
+                          }else if(actual == 'Pendiente'){
+                            return '<span class="badge badge-danger">'+ data +'</span>'
+                          }
+                       }
+              }
           ],
           "language": language_spanish,
           "order": [[ 0, "asc" ]]

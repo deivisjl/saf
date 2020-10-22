@@ -91,6 +91,10 @@ Vue.component('editar-producto-component', require('./components/administrar/pro
 Vue.component('compra-component', require('./components/compra/CompraComponent').default);
 Vue.component('venta-component', require('./components/venta/VentaComponent').default);
 
+/* Componentes de pago */
+Vue.component('pago-proveedor-component', require('./components/pagos/PagoProveedorComponent').default);
+Vue.component('pago-cliente-component', require('./components/pagos/PagoClienteComponent').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
