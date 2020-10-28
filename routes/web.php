@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Auth::routes(['register' => false, 'reset' => false]);
 
@@ -60,4 +61,7 @@ Route::group(['middleware' =>['auth','preventbackbutton']], function(){
     Route::resource('pago-clientes','Pagos\PagoClienteController',['only' => ['index','show','store']]);
     Route::get('pago-clientes/{id}/detalle','Pagos\PagoClienteController@detalle');
     Route::get('pago-clientes/{id}/abonar','Pagos\PagoClienteController@abonar');
+
+    /* Reportes graficos */
+    Route::get('reportes-graficos','Reportes\ReporteGraficoController@index')->name('reportes-graficos.index');
 });

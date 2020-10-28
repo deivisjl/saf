@@ -95,6 +95,12 @@ Vue.component('venta-component', require('./components/venta/VentaComponent').de
 Vue.component('pago-proveedor-component', require('./components/pagos/PagoProveedorComponent').default);
 Vue.component('pago-cliente-component', require('./components/pagos/PagoClienteComponent').default);
 
+/* Componentes reportes graficos */
+Vue.component('grafico-compra-categoria', require('./components/reportes/reporte-grafico/grafico-compra-categoria').default);
+Vue.component('grafico-venta-categoria', require('./components/reportes/reporte-grafico/grafico-venta-categoria').default)
+Vue.component('grafico-producto-vendido', require('./components/reportes/reporte-grafico/grafico-producto-vendido').default);
+Vue.component('grafico-existencia-inventario', require('./components/reportes/reporte-grafico/grafico-existencia-inventario').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

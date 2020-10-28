@@ -25,9 +25,11 @@
     },
     "dependencies": {
         "admin-lte": "^3.0.5",
+        "chart.js": "^2.9.4",
         "sweetalert2": "8.17.1",
         "toastr": "2.1.4",
         "vee-validate": "2.2.15",
+        "vue-chartjs": "^3.5.1",
         "vue-multiselect": "2.1.6"
     }
 }
