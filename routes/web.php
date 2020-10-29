@@ -64,4 +64,9 @@ Route::group(['middleware' =>['auth','preventbackbutton']], function(){
 
     /* Reportes graficos */
     Route::get('reportes-graficos','Reportes\ReporteGraficoController@index')->name('reportes-graficos.index');
+    Route::post('compras-por-categoria','Reportes\ReporteGraficoController@comprasPorCategoria');
+    Route::post('ventas-por-categoria','Reportes\ReporteGraficoController@ventasPorCategoria');
+    Route::post('categorias-mas-vendidas','Reportes\ReporteGraficoController@categoriasMasVendidas');
+    Route::post('existencias-en-inventario','Reportes\ReporteGraficoController@existenciasEnInventario');
+    Route::post('ventas-por-mes','Reportes\ReporteGraficoController@ventasPorMes');
 });

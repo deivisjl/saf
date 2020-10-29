@@ -100,6 +100,12 @@ Vue.component('grafico-compra-categoria', require('./components/reportes/reporte
 Vue.component('grafico-venta-categoria', require('./components/reportes/reporte-grafico/grafico-venta-categoria').default)
 Vue.component('grafico-producto-vendido', require('./components/reportes/reporte-grafico/grafico-producto-vendido').default);
 Vue.component('grafico-existencia-inventario', require('./components/reportes/reporte-grafico/grafico-existencia-inventario').default);
+Vue.component('grafico-venta-mes', require('./components/reportes/reporte-grafico/grafico-ventas-mes').default);
+
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

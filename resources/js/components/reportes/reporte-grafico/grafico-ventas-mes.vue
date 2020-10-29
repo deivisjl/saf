@@ -1,10 +1,29 @@
 <template>
     <div>
         <div class="block-loading-graficas" v-if="loading"></div>
-        <div style="margin-bottom:85px"></div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="" class="control-label">Fecha desde</label>
+                    <input type="date" class="form-control" v-model="valorFechaInicio">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="" class="control-label">Fecha hasta</label>
+                    <input type="date" class="form-control" v-model="valorFechaFin">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button class="btn btn-primary btn-block" @click.prevent="mostrar()">Mostrar</button>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
-                <apexchart type="bar" width="450px" :options="chartOptions" :series="chartSeries"></apexchart>
+                <apexchart type="line" width="100%" height="350px" :options="chartOptions" :series="chartSeries"></apexchart>
             </div>
         </div>
     </div>
@@ -39,13 +58,15 @@ export default {
                 let option = {}
 
                  option = {
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                            }
-                        },
+
                         dataLabels: {
                             enabled: false
+                        },
+                        grid: {
+                            row: {
+                                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                                opacity: 0.5
+                            },
                         },
                         xaxis: {
                             categories: this.etiquetas
@@ -65,8 +86,13 @@ export default {
             mostrar()
             {
                 this.loading = true
+
+                let datos = {
+                    'desde': this.valorFechaInicio,
+                    'hasta':this.valorFechaFin
+                }
                 
-                axios.post('existencias-en-inventario')
+                axios.post('ventas-por-mes', datos)
                     .then((r) =>{
 
                         this.chartSeries = [{data: r.data.data.series}]
@@ -86,6 +112,7 @@ export default {
                     .finally(()=>{
                         this.loading = false
                     })
+
             },
         }
     }

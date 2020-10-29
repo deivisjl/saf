@@ -104,6 +104,17 @@
     left: 0;    
 }
 
+.block-loading-graficas  {
+    z-index:9999;
+    background: url(/images/loading.gif?9783e0a…) #eee center center no-repeat;
+    position: absolute;
+    width:100%;
+    height:100%;
+    z-index:999;
+    opacity:0.7;
+}
+
+
 .navbar-lightblue
 {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#0f5598), color-stop(60%, #0b549a), to(#02325f))!important;

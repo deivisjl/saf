@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="block-loading" v-if="loading"></div>
+        <div class="block-loading-graficas" v-if="loading"></div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -21,6 +21,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <apexchart type="bar" width="450px" :options="chartOptions" :series="chartSeries"></apexchart>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -32,11 +37,13 @@ export default {
             return {
                 loading:false,
                 
-                menuFechaInicio:false,
                 valorFechaInicio:null,
 
-                menuFechaFin:false,
                 valorFechaFin:null,
+
+                chartSeries:[],
+
+                etiquetas:[],
             }
         },
         mounted() {
@@ -44,6 +51,28 @@ export default {
         },
         created(){
             this.setear_fechas()
+            this.mostrar()
+        },
+        computed:{
+            chartOptions(){
+                let option = {}
+
+                 option = {
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        xaxis: {
+                            categories: this.etiquetas
+                        }
+                    }
+
+                return option
+            }
         },
         methods:{
             setear_fechas()
@@ -60,10 +89,27 @@ export default {
                     'desde': this.valorFechaInicio,
                     'hasta':this.valorFechaFin
                 }
-                console.log(datos)
+                
+                axios.post('categorias-mas-vendidas', datos)
+                    .then((r) =>{
 
-                this.loading = false
+                        this.chartSeries = [{data: r.data.data.series}]
 
+                        this.etiquetas = r.data.data.etiquetas
+                    })
+                    .catch((error) => {
+                        if(error.response && error.response.status == 423)
+                        {
+                            Toastr.error(error.response.data.error,'Mensaje');
+                        }
+                        else
+                        {
+                            Toastr.error(error,'Mensaje');
+                        }
+                    })
+                    .finally(()=>{
+                        this.loading = false
+                    })
             },
         }
     }
