@@ -45,7 +45,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{ route('pago-proveedores.index') }}">Pago a proveedores</a>
-            <a class="dropdown-item" href="{{ route('pago-clientes.index') }}">Pago a clientes</a>
+            <a class="dropdown-item" href="{{ route('pago-clientes.index') }}">Pago de clientes</a>
           </div>
       </li>
       <li class="nav-item dropdown">
@@ -54,7 +54,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{{ route('reportes-graficos.index') }}">Reportes gráficos</a>
-          <a class="dropdown-item" href="#">Reportes documentos</a>
+          <a class="dropdown-item" href="{{ route('reportes-documentos.index') }}">Reportes documentos</a>
         </div>
     </li>
     </ul>

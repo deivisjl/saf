@@ -281,24 +281,6 @@
                     .finally(()=>{
                         this.loading = false
                     })
-               /*  axios.post(abs_path + '/ventas',data)
-                    .then(r => {
-                        this.lista = []
-                        this.modelo.forma_pago = ''
-                        this.modelo.cliente = ''
-                        this.modelo.fecha = ''
-                        this.modelo.no_factura = ''
-                        this.modelo.total = 0.00
-                        this.$validator.reset();
-                        
-                        Toastr.success(r.data.data,'Mensaje')
-                    })
-                    .catch(error => {
-                        Toastr.error(error.response.data.error,'Mensaje')
-                    })
-                    .finally(()=>{
-                        this.loading = false
-                    }) */
             },
             
             formatPrice(value) {

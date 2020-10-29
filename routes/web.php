@@ -69,4 +69,12 @@ Route::group(['middleware' =>['auth','preventbackbutton']], function(){
     Route::post('categorias-mas-vendidas','Reportes\ReporteGraficoController@categoriasMasVendidas');
     Route::post('existencias-en-inventario','Reportes\ReporteGraficoController@existenciasEnInventario');
     Route::post('ventas-por-mes','Reportes\ReporteGraficoController@ventasPorMes');
+
+    /* Reportes documento */
+    Route::get('reportes-documentos','Reportes\ReporteDocumentoController@index')->name('reportes-documentos.index');
+    Route::post('reporte-compras','Reportes\ReporteDocumentoController@reporteCompras');
+    Route::post('reporte-ventas','Reportes\ReporteDocumentoController@reporteVentas');
+    Route::post('reporte-inventario','Reportes\ReporteDocumentoController@reporteInventario');
+    Route::post('reporte-cuentas-cobrar','Reportes\ReporteDocumentoController@reporteCuentasCobrar');
+    Route::post('reporte-cuentas-pagar','Reportes\ReporteDocumentoController@reporteCuentasPagar');
 });

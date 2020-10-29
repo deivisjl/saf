@@ -102,6 +102,9 @@ Vue.component('grafico-producto-vendido', require('./components/reportes/reporte
 Vue.component('grafico-existencia-inventario', require('./components/reportes/reporte-grafico/grafico-existencia-inventario').default);
 Vue.component('grafico-venta-mes', require('./components/reportes/reporte-grafico/grafico-ventas-mes').default);
 
+/* Componentes reportes documentos */
+Vue.component('reporte-documento-listado', require('./components/reportes/reporte-documento/listado-reporte-component').default);
+
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
 
