@@ -7,6 +7,7 @@ use App\Estado;
 use App\Cliente;
 use App\Producto;
 use App\FormaPago;
+use Carbon\Carbon;
 use App\DetalleVenta;
 use App\FacturaVenta;
 use Illuminate\Http\Request;
@@ -47,20 +48,6 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        /* 
-        cliente: null
-        factura: null
-        fecha: null
-        forma_pago: 1
-        productos: [{,…}]
-        0: {,…}
-        cantidad: "1"
-        precio: "1800.00"
-        producto: {id: 1, nombre: "Tradicional ochavada", categoria_id: 1, stock_minimo: 2, stock_maximo: 5,…}
-        subtotal: "1800.00"
-        total: 1800
-         */
-
          $rules =[
              'cliente' => 'required',
              'forma_pago' => 'required',
@@ -99,7 +86,13 @@ class VentaController extends Controller
                 $factura->estado_id = ($venta->forma_pago_id == FormaPago::CREDITO) ? Estado::PENDIENTE : Estado::CANCELADO;
                 $factura->save();
 
-                return response()->json(['data' => 'Venta registrada con éxito'],200);
+                $detalleVenta = DetalleVenta::where('venta_id',$venta->id)->get();
+
+                $fecha = Carbon::now()->format('dmY_h:m:s');
+                
+                $boleta = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('comprobante-venta',['venta' => $venta, 'detalle' => $detalleVenta])->setPaper('letter','landscape');
+            
+                return $boleta->download('recibo_'.$fecha.'.pdf');
              });
          } 
          catch (\Exception $ex) 

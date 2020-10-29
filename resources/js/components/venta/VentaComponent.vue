@@ -246,7 +246,42 @@
                     'total':this.modelo.total
                 }
                 this.loading = true
-                axios.post(abs_path + '/ventas',data)
+
+                axios({
+                        url:abs_path + '/ventas',
+                        data:data,
+                        method:'POST',
+                        responseType:'blob'
+                    })
+                    .then((r) => {
+                        const blob = new Blob([r.data], {type: r.data.type});
+                        const url = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        let fileName = Date.now()+'.pdf';
+                        link.setAttribute('download', fileName);
+                        document.body.appendChild(link);
+                        link.click();
+                        link.remove();
+                        window.URL.revokeObjectURL(url);
+
+                        this.lista = []
+                        this.modelo.forma_pago = ''
+                        this.modelo.cliente = ''
+                        this.modelo.fecha = ''
+                        this.modelo.no_factura = ''
+                        this.modelo.total = 0.00
+                        this.$validator.reset();
+                        
+                        Toastr.success('Venta generada con éxito','Mensaje')
+                    })
+                    .catch((error) =>{
+                        Toastr.error(error,'Mensaje')
+                    })
+                    .finally(()=>{
+                        this.loading = false
+                    })
+               /*  axios.post(abs_path + '/ventas',data)
                     .then(r => {
                         this.lista = []
                         this.modelo.forma_pago = ''
@@ -263,7 +298,7 @@
                     })
                     .finally(()=>{
                         this.loading = false
-                    })
+                    }) */
             },
             
             formatPrice(value) {

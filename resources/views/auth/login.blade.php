@@ -58,9 +58,9 @@
                 </div>
               </form>
 
-              <p class="mb-1">
+              {{-- <p class="mb-1">
                 <a href="forgot-password.html">Olvidó su contraseña?</a>
-              </p>
+              </p> --}}
             </div>
             <!-- /.login-card-body -->
           </div>
