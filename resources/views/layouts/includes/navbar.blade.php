@@ -13,6 +13,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{ route('permisos.index') }}">Permisos</a>
             <a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
+            <a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuarios</a>
             <a class="dropdown-item" href="{{ route('usuarios-roles.index') }}">Asignar roles</a>
           </div>
       </li>
