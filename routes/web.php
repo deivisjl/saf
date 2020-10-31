@@ -32,6 +32,8 @@ Route::group(['middleware' =>['auth','preventbackbutton']], function(){
 
     /* Rutas de usuarios */
     Route::resource('usuarios','Acceso\UsuarioController');
+    Route::get('cambiar-credencial','Acceso\UsuarioController@modificarAcceso');
+    Route::post('cambiar-credencial','Acceso\UsuarioController@actualizarAcceso');
     Route::resource('usuarios-roles','Acceso\UsuarioRolController',['except' =>['create','destroy']]);
     Route::get('usuario-rol/{id}','Acceso\UsuarioRolController@listado_roles');
 

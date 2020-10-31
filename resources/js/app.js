@@ -62,6 +62,7 @@ Vue.component('editar-rol-component', require('./components/accesos/roles/Editar
 /* Usuario */
 Vue.component('usuario-component', require('./components/accesos/usuarios/NuevoUsuarioComponent.vue').default);
 Vue.component('editar-usuario-component', require('./components/accesos/usuarios/EditarUsuarioComponent.vue').default);
+Vue.component('credencial-component', require('./components/accesos/usuarios/CredencialComponent.vue').default);
 
 /* Componente usuario rol */
 Vue.component('usuario-rol-component', require('./components/accesos/usuario-rol/UsuarioRolComponent.vue').default);

@@ -69,6 +69,9 @@
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Más opciones</span>
           <div class="dropdown-divider"></div>
+          <a href="/cambiar-credencial" class="dropdown-item">
+              <i class="fas fa-key"></i> Cambiar contraseña
+          </a>
           <a href="{{ route('logout') }}" class="dropdown-item">
               <i class="fas fa-sign-out-alt mr2"></i> Cerrar sesión
           </a>

@@ -137,7 +137,7 @@ class UsuarioController extends Controller
             $registro->email = $request->get('email');
             $registro->save();
 
-            return response()->json(['data' => 'Registro generado con éxito']);
+            return response()->json(['data' => 'Registro actualizado con éxito']);
         } 
         catch (\Exception $ex) 
         {
@@ -164,6 +164,31 @@ class UsuarioController extends Controller
             $usuario->delete();
 
             return response()->json(['data' => 'Registro eliminado con éxito'],200);
+        } 
+        catch (\Exception $ex) 
+        {
+            return response()->json(['error' => $ex->getMessage()],423);
+        }
+    }
+    public function modificarAcceso()
+    {
+        return view('accesos.usuarios.credencial');
+    }
+    public function actualizarAcceso(Request $request)
+    {
+        try 
+        {
+            $rules = [
+                'password'=>'required|string|min:5|confirmed',
+            ];
+
+            $this->validate($request,$rules);
+
+            $registro = Auth::user();
+            $registro->password = bcrypt($request->get('password'));
+            $registro->save();
+
+            return response()->json(['data' => 'Registro actualizado con éxito']);
         } 
         catch (\Exception $ex) 
         {
